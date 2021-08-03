@@ -1,13 +1,15 @@
 package jp.kobe_u.cs.daikibo.ghost.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.kobe_u.cs.daikibo.ghost.dto.MemberForm;
 import jp.kobe_u.cs.daikibo.ghost.entity.Member;
-import jp.kobe_u.cs.daikibo.ghost.exception.ToDoAppException;
 import jp.kobe_u.cs.daikibo.ghost.repository.MemberRepository;
 
 /**
@@ -37,7 +39,7 @@ public class MemberService {
      */
     public Member getMember(String mid) {
         Member m = mRepo.findById(mid).orElseThrow(
-                () -> new ToDoAppException(ToDoAppException.NO_SUCH_MEMBER_EXISTS, mid + ": No such member exists"));
+            ()-> new NoResultException("No such person exists Person "));
         return m;
     }
 

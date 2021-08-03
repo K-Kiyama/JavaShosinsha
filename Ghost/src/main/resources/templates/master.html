@@ -54,26 +54,18 @@
     </table>
 
 
-    <div id="calendar">
-        <form method="POST" action="./create_shift.html">
-        <input type="submit" value="シフトを作成する" />
-        </form>
-    </div>
-    
-    <script>
-        // ページ読み込み時の処
-        $(document).ready(function () {
-            // カレンダーの設定
-            $('#calendar').fullCalendar({
-                height: 550,
-                location: "ja",
-                editable: true,
-                eventLimit: true,
-                //events:shiftList
-                });
-        });
-        //shiftListを{title:名前,start:シフト日}の形式でもってくる
-    </script>
+    <h2>シフト一覧</h2>
+    <a th:href="@{/admin/createShift}">シフトの作成</a>
+    <table border="1">
+      <tr>
+        <th>日付</th>
+        <th>氏名</th>
+      </tr>
+      <tr th:each="cs: ${confirmedShifts}">
+        <td>[[${cs.date}]]</td>
+        <td>[[${cs.name}]]</td>
+      </tr>
+    </table>
     </head>
   </body>
 </html>

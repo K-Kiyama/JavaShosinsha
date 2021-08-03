@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8">
-    <title>管理者画面</title>
-  </head>
-
-  <body width="2000px" height="2000px">
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <link rel="stylesheet" href="fullcalendar/fullcalendar.css" media="all"/>
-    <link rel="stylesheet" href="style.css" media="all"/>    
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src='fullcalendar/lib/jquery.min.js'></script>
-    <script src='fullcalendar/lib/moment.min.js'></script>
-    <script src='fullcalendar/fullcalendar.js'></script>
-    <script src='fullcalendar/locale/ja.js'></script>
-
-    <h1 style="text-align:center;">管理者画面</h1>
-    <h2>メンバー新規登録</h2>
+<h2>メンバー新規登録</h2>
     <p> メンバーIDと氏名を入力して，「確認する」を押してください．</p>
     <ul>
         <li>メンバーIDには，アルファベット小文字，数字，ハイフン，アンダーバーのみ使用できます．4文字以上16文字未満</li>
@@ -52,28 +34,3 @@
             <td><a th:href=@{/admin/delete/{m}(m=${m.mid})}>削除</a></td>
         </tr>
     </table>
-
-
-    <div id="calendar">
-        <form method="POST" action="./create_shift.html">
-        <input type="submit" value="シフトを作成する" />
-        </form>
-    </div>
-    
-    <script>
-        // ページ読み込み時の処
-        $(document).ready(function () {
-            // カレンダーの設定
-            $('#calendar').fullCalendar({
-                height: 550,
-                location: "ja",
-                editable: true,
-                eventLimit: true,
-                //events:shiftList
-                });
-        });
-        //shiftListを{title:名前,start:シフト日}の形式でもってくる
-    </script>
-    </head>
-  </body>
-</html>

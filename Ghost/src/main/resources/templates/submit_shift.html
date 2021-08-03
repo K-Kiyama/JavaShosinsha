@@ -18,15 +18,16 @@
     <h1 style="text-align:center;">シフト提出画面</h1>
     <div id="calendar">
         <form method="POST" action="./calendar.html">
-            <input type="submit" value="提出する"/>
+            <input type="submit" value="提出する" onclick="submitting()"/>
         </form>
     </div>
     <div id="shiftlist">
         <h3>選択したシフト希望日</h2>
         <text id="list"></text>
     </div>
-    <script>
+    <script type="javascript" th:inline="javascript">
         // ページ読み込み時の処理
+        /*<![CDATA[*/
         var shiftList = [];
         $(document).ready(function () {
             // カレンダーの設定
@@ -54,6 +55,17 @@
                 }
                 });
         });
+        function submitting(){
+            var List = [];
+            for(let i=0;shiftList.length;i++){
+                List.push([{
+                    name:[[${member.name}]],
+                    date:shiftList[i]
+                }])
+            }
+            /*[[${shifts}]]*/=List;
+        }
+        /*]]>*/
     </script>
   </body>
 </html>

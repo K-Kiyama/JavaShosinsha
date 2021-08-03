@@ -12,11 +12,11 @@
             <th>氏名</th>
             <th>コマンド</th>
         </tr>
-        <tr th:each="sm: ${submitMembers)">
-            <td>[[${sm.date}]]</td>
-            <td>[[${sm.name}]]</td>
+        <tr th:each="ss: ${submitShifts)">
+            <td>[[${ss.date}]]</td>
+            <td>[[${ss.name}]]</td>
             <td>
-                <a th:href="@{/admin/{seq}/confirme(seq=${sm.seq})}">登録</a>
+                <a th:href="@{/admin/{seq}/confirme(seq=${ss.seq})}">登録</a>
             </td>
         </tr>
     </table>
@@ -27,10 +27,10 @@
             <th>氏名</th>
             <th>コマンド</th>
         </tr>
-        <tr th:each="cm: ${confirmedMembers}">
-            <td>[[${cm.mid}]]</td>
-            <td>[[${cm.name}]]</td>
-            <td><a th:href=@{/admin/{seq}/delete(seq=${cm.mid})}>削除</a></td>
+        <tr th:each="cs: ${confirmeShifts}">
+            <td>[[${cs.mid}]]</td>
+            <td>[[${cs.name}]]</td>
+            <td><a th:href=@{/admin/{seq}/delete(seq=${cs.mid})}>削除</a></td>
         </tr>
     </table>
     <p>

@@ -22,7 +22,8 @@
     </div>
     
     <script>
-        // ページ読み込み時の処
+        // ページ読み込み時の処理
+            var events = [];
         $(document).ready(function () {
             // カレンダーの設定
             $('#calendar').fullCalendar({
@@ -30,16 +31,19 @@
                 location: "ja",
                 editable: true,
                 eventLimit: true,
-                //events:shiftList
-                /*
-                  shiftList=[{
-                    title:名前,
-                    start:シフト日
-                  }]
-                  の形式で持ってくる
-                */
+                events:events
                 });
         });
+    </script>
+    <script type="javascript" th:inline="javascript">
+      events = [];
+      event = [];
+      /*<![CDATA[*/
+        event = /*[[${shifts}]]*/
+      /*]]>*/
+      for(let i=0;i<event.length;i++){
+        events.push(event[i])
+      }
     </script>
     </head>
   </body>

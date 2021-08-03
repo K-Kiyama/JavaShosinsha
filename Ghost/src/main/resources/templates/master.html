@@ -59,11 +59,11 @@
     <table border="1">
       <tr>
         <th>日付</th>
-        <th>従業員</th>
+        <th>氏名</th>
       </tr>
-      <tr th:each="rm: ${registeredMembers}">
-        <td>[[${rm.date}]]</td>
-        <td>[[${rm.name}]]</td>
+      <tr th:each="cs: ${confirmeShifts}">
+        <td>[[${cs.date}]]</td>
+        <td>[[${cs.name}]]</td>
       </tr>
     </table>
     </head>

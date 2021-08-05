@@ -1,5 +1,6 @@
 package jp.kobe_u.cs.daikibo.ghost.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ShiftController {
     MemberService mService;
     @Autowired
     ShiftService sService;
-    
+
     /**
      * トップページ
      */
@@ -39,19 +40,31 @@ public class ShiftController {
     @PostMapping("/login")
     String login(@RequestParam String mid, Model model) {
         Member m = mService.getMember(mid); // 存在チェック
-        return "redirect:/" + m.getMid() + "/calender";
+        return "redirect:/" + m.getMid() + "/list";
     }
 
     /**
      * ユーザのカレンダーページ
      */
-    @GetMapping("/{mid}/calender")
+    @GetMapping("/{mid}/calendar")
     String showCalender(@PathVariable String mid, Model model) {
         Member m = mService.getMember(mid);
         model.addAttribute("member", m);
         List<Shift> shifts = sService.getShiftList();
         model.addAttribute("shifts", shifts);
-        return "calender";
+        return "calendar";
+    }
+
+    /**
+     * ユーザのシフトリストページ（簡易版）
+     */
+    @GetMapping("/{mid}/list")
+    String showList(@PathVariable String mid, Model model) {
+        Member m = mService.getMember(mid);
+        model.addAttribute("member", m);
+        List<Shift> shifts = sService.getShiftList();
+        model.addAttribute("shifts", shifts);
+        return "list";
     }
 
     /**
@@ -63,19 +76,23 @@ public class ShiftController {
         model.addAttribute("member", m);
         ShiftForm form = new ShiftForm();
         model.addAttribute("shiftForm", form);
+        List<Shift> shifts = sService.getShiftList(mid);
+        model.addAttribute("shifts", shifts);
+        return "submit_shift";
     }
 
     /**
      * シフト作成　→　リダイレクト
+     * @throws ParseException
      */
     @PostMapping("/{mid}/submit")
     String submitShift(
         @PathVariable String mid,
-        @Validated @ModelAttribute(name = "shiftForm") ShiftForm form, 
+        @Validated @ModelAttribute(name = "shiftForm") ShiftForm form,
         Model model
-    ) { 
+    ) throws ParseException {
         sService.createShift(mid, form);
-        return "redirect:/" + mid + "/submit";
+        return "redirect:/" + mid + "/calendar";
     }
 
 }

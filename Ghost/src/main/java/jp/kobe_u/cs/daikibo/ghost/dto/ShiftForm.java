@@ -11,7 +11,7 @@ import lombok.Data;
 public class ShiftForm {
     String mid;
     String strdate; // YYYY-MM-DD
-    
+
     public Shift toEntity() throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(strdate);

@@ -12,7 +12,7 @@
             <th>氏名</th>
             <th>コマンド</th>
         </tr>
-        <tr th:each="ss: ${submitedShifts)">
+        <tr th:each="ss: ${submitedShifts}">
             <td>[[${ss.date}]]</td>
             <td>[[${ss.name}]]</td>
             <td>
@@ -36,6 +36,5 @@
     <p>
         <a th:href=@{/}>戻る</a>
     </p>
-    
   </body>
 </html>

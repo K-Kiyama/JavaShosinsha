@@ -26,22 +26,20 @@ public class ShiftService {
      * @return
      * @throws ParseException
      */
-    public Shift createShift(String mid, Date date, ShiftForm form) throws ParseException {
+    public Shift createShift(String mid, ShiftForm form) throws ParseException {
         mService.getMember(mid); //実在メンバーか確認
         Shift shift = form.toEntity();
         shift.setMid(mid);
-        shift.setDate(date);
         return sRepo.save(shift);
     }
 
     /**
-     * 
      * Shiftを1つ取得する (R)
      * @param seq
      * @return
      */
     public Shift getShift(Long seq) {
-        Shift shift = sRepo.findById(seq);
+        Shift shift = sRepo.findBySeq(seq);
         return shift;
     }
 
@@ -53,7 +51,6 @@ public class ShiftService {
     public List<Shift> getShiftList(String mid) {
         return sRepo.findByMid(mid);
     }
-    
 
     /**
      * 全員のShiftリストを取得する (R)
@@ -73,6 +70,14 @@ public class ShiftService {
         return sRepo.findByFlag(true);
     }
 
+    /**
+     * 確定していないShiftを取得
+     * @return
+     */
+    public List<Shift> getFalseShift() {
+        return sRepo.findByFlag(false);
+    }
+
 
     /**
      * Shiftを確定させる
@@ -80,9 +85,8 @@ public class ShiftService {
      * @param seq 確定するShiftの番号
      * @return
      */
-    public Shift done(String mid, Long seq) {
+    public Shift done(Long seq) {
         Shift shift = getShift(seq);
-        
         shift.setFlag(true);
         return sRepo.save(shift);
     }

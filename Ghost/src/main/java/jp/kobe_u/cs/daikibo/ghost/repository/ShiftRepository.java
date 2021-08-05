@@ -8,7 +8,7 @@ import jp.kobe_u.cs.daikibo.ghost.entity.Shift;
 public interface ShiftRepository extends CrudRepository<Shift, String>{
     List<Shift> findAll();
 
-    Shift findById(long seq);
+    Shift findBySeq(long seq);
 
     List<Shift> findByMid(String mid);
 

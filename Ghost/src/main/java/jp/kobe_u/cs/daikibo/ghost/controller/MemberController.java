@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.kobe_u.cs.daikibo.ghost.dto.MemberForm;
 import jp.kobe_u.cs.daikibo.ghost.dto.ShiftForm;
 import jp.kobe_u.cs.daikibo.ghost.entity.Member;
+import jp.kobe_u.cs.daikibo.ghost.entity.Shift;
 import jp.kobe_u.cs.daikibo.ghost.service.MemberService;
+import jp.kobe_u.cs.daikibo.ghost.service.ShiftService;
 
 @Controller
 @RequestMapping("/admin")
 public class MemberController {
     @Autowired
     MemberService mService;
+    @Autowired
+    ShiftService sService;
 
     /**
      * 管理者用・ユーザ登録ページ HTTP-GET /admin/register
@@ -35,7 +39,8 @@ public class MemberController {
         MemberForm form = new MemberForm();
         model.addAttribute("MemberForm", form);
         // trueだけ渡す
-        
+        List<Shift> trueList = sService.getTrueShift();
+        model.addAttribute("confirmedShifts", trueList);
         return "master";
     }
 
@@ -45,7 +50,7 @@ public class MemberController {
      * @param model
      * @return
      */
-    @PostMapping("/check") 
+    @PostMapping("/check")
     String checkUserForm(@ModelAttribute(name = "MemberForm") MemberForm form,  Model model) {
         model.addAttribute("MemberForm", form);
 
@@ -65,7 +70,7 @@ public class MemberController {
 
         return "registered";
     }
-    
+
     @GetMapping("/delete/{mid}")
     String deleteUser(@PathVariable String mid, Model model) {
         mService.deleteMember(mid);
@@ -79,6 +84,10 @@ public class MemberController {
     @GetMapping("/create")
     String showCreateForm(Model model) {
         // trueだけのリスト
+        List<Shift> trueList = sService.getTrueShift();
+        model.addAttribute("confirmedShifts", trueList);
+        List<Shift> falseList = sService.getFalseShift();
+        model.addAttribute("submitedShifts", falseList);
         // falseだけのリスト
         ShiftForm form = new ShiftForm();
         model.addAttribute("shiftForm", form);
@@ -88,10 +97,14 @@ public class MemberController {
     /**
      * シフト作成　→　リダイレクト
      */
-    @PostMapping("/create")
+    @PostMapping("/{sid}/confirm")
     String createShift(
-        @Validated @ModelAttribute
-    )
+        @PathVariable Long sid,
+        Model model
+    ) {
+        sService.done(sid);
+        return "redirect:/create";
+    }
 
 
 }

@@ -28,7 +28,7 @@ public class ShiftService {
      */
     public Shift createShift(String mid, ShiftForm form) throws ParseException {
         mService.getMember(mid); //実在メンバーか確認
-        Shift shift = form.toEntity();
+        Shift shift = form.toEntity(mid);
         shift.setMid(mid);
         return sRepo.save(shift);
     }

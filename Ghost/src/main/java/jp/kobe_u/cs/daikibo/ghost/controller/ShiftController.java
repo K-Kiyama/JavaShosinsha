@@ -25,7 +25,7 @@ public class ShiftController {
     MemberService mService;
     @Autowired
     ShiftService sService;
-
+    
     /**
      * トップページ
      */
@@ -46,17 +46,17 @@ public class ShiftController {
     /**
      * ユーザのカレンダーページ
      */
-    @GetMapping("/{mid}/calendar")
+    @GetMapping("/{mid}/calender")
     String showCalender(@PathVariable String mid, Model model) {
         Member m = mService.getMember(mid);
         model.addAttribute("member", m);
         List<Shift> shifts = sService.getShiftList();
         model.addAttribute("shifts", shifts);
-        return "calendar";
+        return "calender";
     }
 
     /**
-     * ユーザのシフトリストページ（簡易版）
+     * ユーザのカレンダーページ超簡易版
      */
     @GetMapping("/{mid}/list")
     String showList(@PathVariable String mid, Model model) {
@@ -76,23 +76,23 @@ public class ShiftController {
         model.addAttribute("member", m);
         ShiftForm form = new ShiftForm();
         model.addAttribute("shiftForm", form);
-        List<Shift> shifts = sService.getShiftList(mid);
+        List<Shift> shifts = sService.getShiftList();
         model.addAttribute("shifts", shifts);
-        return "submit_shift";
+        return "submit_shift_poc";
     }
 
     /**
-     * シフト作成　→　リダイレクト
+     * シフト提出　→　リダイレクト
      * @throws ParseException
      */
     @PostMapping("/{mid}/submit")
     String submitShift(
         @PathVariable String mid,
-        @Validated @ModelAttribute(name = "shiftForm") ShiftForm form,
+        @Validated @ModelAttribute(name = "shiftForm") ShiftForm form, 
         Model model
-    ) throws ParseException {
+    ) throws ParseException { 
         sService.createShift(mid, form);
-        return "redirect:/" + mid + "/calendar";
+        return "redirect:/" + mid + "/list";
     }
 
 }

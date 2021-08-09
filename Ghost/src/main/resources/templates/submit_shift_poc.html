@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>シフト提出</title>
+</head>
+<body>
+    <!-- 見出し -->
+    <h1>シフト提出</h1>
+    <p>日付を選んで「提出する」を押してください</p>
+    <form role="form" th:action="@{/{mid}/submit(mid=${mid})}" th:object=${shiftForm} method="POST">
+        <input type="date" required th:field="*{strdate}">
+        <input type="submit" value="提出する">
+    </form>
+    <p>
+        <a th:href="@{/{mid}/list(mid=${mid})}">戻る</a>
+    </p>
+</body>

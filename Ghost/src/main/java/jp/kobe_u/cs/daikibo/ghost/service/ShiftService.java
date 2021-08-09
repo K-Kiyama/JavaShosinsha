@@ -78,6 +78,23 @@ public class ShiftService {
         return sRepo.findByFlag(false);
     }
 
+    /**
+     * あるメンバーの確定shiftリストを取得する (R)
+     * @param mid
+     * @return
+     */
+    public List<Shift> getTrueShiftList(String mid) {
+        return sRepo.findByMidAndFlag(mid, true);
+    }
+
+    /**
+     * あるメンバーの確定していないshiftリストを取得する (R)
+     * @param mid
+     * @return
+     */
+    public List<Shift> getFalseShiftList(String mid) {
+        return sRepo.findByMidAndFlag(mid, false);
+    }
 
     /**
      * Shiftを確定させる

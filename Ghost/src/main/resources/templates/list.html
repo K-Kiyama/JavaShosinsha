@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>シフト確認画面</title>
-  </head>
+</head>
 
-  <body>
-      <!-- 現在時刻取得 -->
-      <script>
-          var today = new Date();
-          var month = today.getMonth() + 1;
-          var day = today.getDay();
-      </script>
-      <h1>[[${member.name}]]さんのシフト</h1>
-      <p>
+<body>
+    <h1>[[${member.name}]]さんのマイページ</h1>
+    <p>
         <a th:href="@{/{mid}/submit(mid=${member.mid})}">シフト提出</a>
         <a th:href="@{/}">ログアウト</a>
     </p>
-    <table>
+    <h2>[[${member.name}]]さんの出勤日</h2>
+    <table border="1">
         <tr>
             <th>#</th>
             <th>日付</th>
         </tr>
-        <tr th:each="shift: ${shifts}">
-            <td>[[${shift.seq}]]</td>
-            <td>[[${shift.date}]]</td>
+        <tr th:each="ms: ${myShifts}">
+            <td>[[${ms.seq}]]</td>
+            <td>[[${ms.date}]]</td>
         </tr>
     </table>
-    </body>
+    <h2>[[${member.name}]]さんの未確定シフト</h2>
+    <table border="1">
+        <tr>
+            <th>#</th>
+            <th>日付</th>
+        </tr>
+        <tr th:each="ss: ${submitedShifts}">
+            <td>[[${ss.seq}]]</td>
+            <td>[[${ss.date}]]</td>
+        </tr>
+    </table>
+</body>
 </html>

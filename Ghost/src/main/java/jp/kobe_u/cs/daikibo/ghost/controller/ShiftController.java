@@ -62,8 +62,10 @@ public class ShiftController {
     String showList(@PathVariable String mid, Model model) {
         Member m = mService.getMember(mid);
         model.addAttribute("member", m);
-        List<Shift> shifts = sService.getShiftList();
-        model.addAttribute("shifts", shifts);
+        List<Shift> myShifts = sService.getTrueShiftList(mid);
+        model.addAttribute("myShifts", myShifts);
+        List<Shift> mySubmitedShifts = sService.getFalseShiftList(mid);
+        model.addAttribute("submitedShifts", mySubmitedShifts);
         return "list";
     }
 

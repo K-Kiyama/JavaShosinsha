@@ -86,24 +86,22 @@ public class MemberController {
         // trueだけのリスト
         List<Shift> trueList = sService.getTrueShift();
         model.addAttribute("confirmedShifts", trueList);
+        // falseだけのリスト
         List<Shift> falseList = sService.getFalseShift();
         model.addAttribute("submitedShifts", falseList);
-        // falseだけのリスト
-        ShiftForm form = new ShiftForm();
-        model.addAttribute("shiftForm", form);
-        return "create_shift";
+        return "create_shift_poc";
     }
 
     /**
      * シフト作成　→　リダイレクト
      */
-    @PostMapping("/{sid}/confirm")
+    @GetMapping("/{sid}/confirm")
     String createShift(
         @PathVariable Long sid,
         Model model
     ) {
         sService.done(sid);
-        return "redirect:/create";
+        return "redirect:/admin/create";
     }
 
 

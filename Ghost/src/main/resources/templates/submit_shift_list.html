@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>シフト提出画面</title>
+  </head>
+
+  <body>
+    <!-- 現在時刻取得 -->
+    <script>
+        var today = new Date();
+        var month = today.getMonth() + 1;
+        var day = today.getDay();
+    </script>
+    <!-- Date型の配列（14日分）作成 -->
+    <script>
+        var twoweek = []
+        for (let i = 0; i < 14; i++) {
+            var dt = new Date();
+            dt.setDate(dt.getDate + i);
+            /** 日付を文字列にフォーマットする */
+            var formatted = `
+            ${dt.getFullYear()}-
+            ${(dt.getMonth()+1).toString().padStart(2, '0')}-
+            ${dt.getDate().toString().padStart(2, '0')}
+            `.replace(/\n|\r/g, '');
+            twoweek.push(dt);
+        }
+    </script>
+    <h1>[[${member.name}]]さんのシフト提出</h1>
+    <p>
+        <a th:href="@{/{mid}/submit(mid=${member.mid})}">シフト提出</a>
+        <a th:href="@{/}">ログアウト</a>
+    </p>
+    <table border="1">
+        <tr>
+            <th>日付</th>
+            <th>提出チェック</th>
+        </tr>
+        <tr th:each="dt: twoweek">
+            <td>dt</td>
+            <td>
+                <input type="checkbox" value=$dt>
+            </td>
+        </tr>
+    </table>
+    </body>
+</html>

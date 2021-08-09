@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja" xlmns="https://www.tymeleaf.org">
+<html lang="ja" xlmns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>login</title>
 </head>
 <body>
-    <!--<form th:action="@{/login}" th:object="${EmployList}" method="post" name="loginForm">-->
+    <!-- <form th:action="@{/login}" th:object="${EmployList}" method="post" name="loginForm">
     <!--User_idで一致するものがあるか検索??-->
-    <form action="./calendar.html" method="post" name="loginForm">
-        <label for="userid">User_id</label>
+    <!-- <form action="/calendar.html" method="post" name="loginForm"> -->
+        <!-- <label for="userid">User_id</label>
         <input type="text" required th:field="*{userid}" />
         <input type="submit" value="ログイン" onclick="checkId()"/>
+    </form> -->
+    <h1>玄品ふぐシフト管理アプリケーション</h1>
+    <p>
+        ログインしてください．メンバーIDがない人は，管理者にお問い合わせください．
+    </p>
+    <form role="form" th:action="@{/login}" method="post">
+        <p>
+            <label>メンバーID: </label>
+            <input type="text" id="mid" name="mid" />
+        </p>
+        <p>
+            <input type="submit" value="ログイン" />
+        </p>
     </form>
 </body>
 </html>

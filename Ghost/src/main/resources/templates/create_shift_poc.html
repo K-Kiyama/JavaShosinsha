@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>シフト作成</title>
+</head>
+<body>
+    <h1>シフト作成ページ</h1>
+    <p>
+        <a th:href="@{/admin/master}">TOPページへ</a>
+    </p>
+    <h2>提出されたシフト</h2>
+    <table border="1">
+        <tr>
+            <th>#</th>
+            <th>日付</th>
+            <th>従業員名</th>
+            <th>確定</th>
+        </tr>
+        <tr th:each="ss: ${submitedShifts}">
+            <th>[[${ss.seq}]]</th>
+            <th>[[${ss.date}]]</th>
+            <th>[[${ss.mid}]]</th>
+            <th>
+                <a th:href="@{/admin/{sid}/confirm(sid=${ss.seq})}">確定</a>
+            </th>
+        </tr>
+    </table>
+    <h2>確定したシフト</h2>
+    <table border="1">
+        <tr>
+            <th>#</th>
+            <th>日付</th>
+            <th>従業員名</th>
+        </tr>
+        <tr th:each="cs: ${confirmedShifts}">
+            <th>[[${cs.seq}]]</th>
+            <th>[[${cs.date}]]</th>
+            <th>[[${cs.mid}]]</th>
+        </tr>
+    </table>
+</body>

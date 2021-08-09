@@ -22,13 +22,13 @@
         <li>メンバーIDには，アルファベット小文字，数字，ハイフン，アンダーバーのみ使用できます．4文字以上16文字未満</li>
         <li>氏名は最大32文字．半角・全角が使用できます．</li>
     </ul>
-    <form role="form" th:action="@{/registered}" th:object="${MemberForm}" method="post">
+    <form role="form" th:action="@{/admin/registered}" th:object="${MemberForm}" method="post">
         <table>
             <tr>
                 <td><label>メンバーID: </label></td>
                 <td><input type="text" required th:field="*{mid}" />
                     <span th:if="${#fields.hasErrors('mid')}" th:errors="*{mid}" style="color: red"></span>
-                </td>                
+                </td>
             </tr>
             <tr>
                 <td><label>氏名: </label></td>
@@ -55,7 +55,7 @@
 
 
     <h2>シフト一覧</h2>
-    <a th:href="@{/admin/createShift}">シフトの作成</a>
+    <a th:href="@{/admin/create}">シフトの作成</a>
     <table border="1">
       <tr>
         <th>日付</th>
@@ -63,7 +63,7 @@
       </tr>
       <tr th:each="cs: ${confirmedShifts}">
         <td>[[${cs.date}]]</td>
-        <td>[[${cs.name}]]</td>
+        <td>[[${cs.mid}]]</td>
       </tr>
     </table>
     </head>

@@ -27,7 +27,7 @@
     </div>
     <script type="javascript" th:inline="javascript">
         // ページ読み込み時の処理
-        /*<![CDATA[*/
+        <![CDATA[
         var shiftList = [];
         $(document).ready(function () {
             // カレンダーの設定
@@ -36,7 +36,7 @@
                 locale: "ja",
                 selectable: true,
                 unselectAuto:false,
-                //events:shiftList 現在のシフト状況
+                events:shiftList // 現在のシフト状況
                 dayClick: function(date, jsEvent, view) {
                     if($(this).hasClass("clicked")){
                         $(this).removeClass("clicked");
@@ -63,9 +63,9 @@
                     date:shiftList[i]
                 }])
             }
-            /*[[${shifts}]]*/=List;
+            [[${shifts}]]=List;
         }
-        /*]]>*/
+        ]]>
     </script>
   </body>
 </html>

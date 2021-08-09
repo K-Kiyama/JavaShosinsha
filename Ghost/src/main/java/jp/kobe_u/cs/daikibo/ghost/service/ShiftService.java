@@ -2,7 +2,6 @@ package jp.kobe_u.cs.daikibo.ghost.service;
 
 
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import jp.kobe_u.cs.daikibo.ghost.dto.ShiftForm;
 import jp.kobe_u.cs.daikibo.ghost.entity.Shift;
-//import jp.kobe_u.cs.daikibo.ghost.exception.ToDoAppException;
 import jp.kobe_u.cs.daikibo.ghost.repository.ShiftRepository;
 
 @Service
@@ -49,7 +47,7 @@ public class ShiftService {
      * @return
      */
     public List<Shift> getShiftList(String mid) {
-        return sRepo.findByMid(mid);
+        return sortShiftList(sRepo.findByMid(mid));
     }
 
     /**
@@ -57,7 +55,7 @@ public class ShiftService {
      * @return
      */
     public List<Shift> getShiftList() {
-        return sRepo.findAll();
+        return sortShiftList(sRepo.findAll());
     }
 
     /**
@@ -67,7 +65,7 @@ public class ShiftService {
      * @return
      */
     public List<Shift> getTrueShift(){
-        return sRepo.findByFlag(true);
+        return sortShiftList(sRepo.findByFlag(true));
     }
 
     /**
@@ -75,7 +73,7 @@ public class ShiftService {
      * @return
      */
     public List<Shift> getFalseShift() {
-        return sRepo.findByFlag(false);
+        return sortShiftList(sRepo.findByFlag(false));
     }
 
     /**
@@ -84,7 +82,7 @@ public class ShiftService {
      * @return
      */
     public List<Shift> getTrueShiftList(String mid) {
-        return sRepo.findByMidAndFlag(mid, true);
+        return sortShiftList(sRepo.findByMidAndFlag(mid, true));
     }
 
     /**
@@ -93,7 +91,7 @@ public class ShiftService {
      * @return
      */
     public List<Shift> getFalseShiftList(String mid) {
-        return sRepo.findByMidAndFlag(mid, false);
+        return sortShiftList(sRepo.findByMidAndFlag(mid, false));
     }
 
     /**
@@ -106,6 +104,16 @@ public class ShiftService {
         Shift shift = getShift(seq);
         shift.setFlag(true);
         return sRepo.save(shift);
+    }
+
+    /**
+     * シフトリストを日付順にソートする
+     * @param list
+     * @return
+     */
+    public List<Shift> sortShiftList(List<Shift> list) {
+        list.sort((a, b) -> (int)a.getDate().getTime() - (int)b.getDate().getTime());
+        return list;
     }
 
 

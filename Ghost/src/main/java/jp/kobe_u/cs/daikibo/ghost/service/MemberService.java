@@ -1,7 +1,6 @@
 package jp.kobe_u.cs.daikibo.ghost.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.NoResultException;
 
@@ -27,7 +26,6 @@ public class MemberService {
      */
     public Member createMember(MemberForm form) {
         String mid = form.getMid();
-
         Member m = form.toEntity();
         return mRepo.save(m);
     }

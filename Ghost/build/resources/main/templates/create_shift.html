@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>シフト作成(変更)</title>
+  </head>
+  <body>
+    <h1>シフト作成(変更)</h1>
+    <h2>提出されたシフト</h2>
+    <table border="1">
+        <tr>
+            <th>日付</th>
+            <th>氏名</th>
+            <th>コマンド</th>
+        </tr>
+        <tr th:each="ss: ${submitedShifts}">
+            <td>[[${ss.date}]]</td>
+            <td>[[${ss.name}]]</td>
+            <td>
+                <a th:href="@{/admin/{seq}/confirm(seq=${ss.seq})}">登録</a>
+            </td>
+        </tr>
+    </table>
+    <h2>シフト確定</h2>
+    <table border="1">
+        <tr>
+            <th>日付</th>
+            <th>氏名</th>
+            <th>コマンド</th>
+        </tr>
+        <tr th:each="cs: ${confirmedShifts}">
+            <td>[[${cs.mid}]]</td>
+            <td>[[${cs.name}]]</td>
+            <td><a th:href=@{/admin/{seq}/delete(seq=${cs.mid})}>削除</a></td>
+        </tr>
+    </table>
+    <p>
+        <a th:href=@{/}>戻る</a>
+    </p>
+  </body>
+</html>
